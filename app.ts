@@ -1,7 +1,10 @@
+import 'dotenv/config';
+
 import path from 'path';
 import express from 'express';
+import mongoose from 'mongoose';
 
-import productRoutes from './routes/product';
+import productRouter from './routes/products';
 
 const app = express();
 
@@ -12,6 +15,18 @@ app.get('/', (req, res, next) => {
   res.json('Hello World');
 });
 
-app.use(productRoutes);
+app.use(productRouter);
 
-app.listen(3004);
+const dbName =
+  process.env.NODE_ENV === 'production'
+    ? 'inventory-warung'
+    : 'inventory-warung-developmnet';
+
+mongoose
+  .connect(process.env.MONGODB_URI as string, { dbName })
+  .then(() => {
+    console.log('Connected to mongodb!');
+
+    app.listen(3004);
+  })
+  .catch((err) => console.log(err));
