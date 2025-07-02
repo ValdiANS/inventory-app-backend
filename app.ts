@@ -10,6 +10,7 @@ const app = express();
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(process.cwd(), 'public')));
+app.use(express.json({ limit: '2mb' }));
 
 app.get('/', (req, res, next) => {
   res.json('Hello World');
