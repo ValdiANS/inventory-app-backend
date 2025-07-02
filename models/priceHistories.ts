@@ -20,7 +20,10 @@ const priceHistorySchema = new Schema<IPriceHistory>(
   { timestamps: true }
 );
 
-const PriceHistories = model<IPriceHistory>(COLLECTION_NAMES.PRICE_HISTORIES);
+const PriceHistories = model<IPriceHistory>(
+  COLLECTION_NAMES.PRICE_HISTORIES,
+  priceHistorySchema
+);
 
 export { IPriceHistory };
 export default PriceHistories;
